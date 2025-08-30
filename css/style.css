@@ -1,0 +1,294 @@
+/* Custom styles for LinkedIn Games Leaderboard */
+
+:root {
+  --primary-blue: #0077B5;
+  --success-green: #10B981;
+  --warning-yellow: #F59E0B;
+  --danger-red: #EF4444;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+#content {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.nav-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-btn.active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-btn:hover:not(.active) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.game-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.leaderboard-item {
+  transition: background-color 0.15s ease-in-out;
+}
+
+.leaderboard-item:hover {
+  background-color: var(--gray-50);
+}
+
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+}
+
+.metric-value {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+
+
+.rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); }
+.rank-2 { background: linear-gradient(135deg, #C0C0C0, #A8A8A8); }
+.rank-3 { background: linear-gradient(135deg, #CD7F32, #A0522D); }
+
+/* Performance toggle styling */
+.performance-toggle-container {
+  display: inline-flex;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  overflow: hidden;
+}
+
+.performance-toggle-btn {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.performance-toggle-btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.performance-toggle-btn:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.performance-toggle-btn.active {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.performance-toggle-btn:hover:not(.active) {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Horizontal date scroller */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+#date-scroller {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+}
+
+.date-pill {
+  min-width: 70px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.date-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.date-pill:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+.fade-in {
+  /* Removed stuttery animation for better performance */
+}
+
+.loading-spinner {
+  border: 3px solid var(--gray-200);
+  border-top: 3px solid var(--primary-blue);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Game-specific colors */
+.game-zip { background: linear-gradient(135deg, #10B981, #059669); }
+.game-tango { background: linear-gradient(135deg, #3B82F6, #1D4ED8); }
+.game-queens { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
+.game-crossclimb { background: linear-gradient(135deg, #F59E0B, #D97706); }
+.game-minisudoku { background: linear-gradient(135deg, #EF4444, #DC2626); }
+.game-pinpoint { background: linear-gradient(135deg, #06B6D4, #0891B2); }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .nav-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Comparison UI Styles */
+.game-tab {
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.game-tab.active {
+  background-color: rgb(59, 130, 246);
+  color: white;
+  border-bottom: 2px solid rgb(59, 130, 246);
+}
+
+.chart-container {
+  position: relative;
+  height: 400px;
+  margin-bottom: 1rem;
+}
+
+.player-select-card {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.player-select-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.player-select-card.selected {
+  border-color: rgb(34, 197, 94);
+  background-color: rgb(236, 253, 245);
+}
+
+.player-select-card .player-checkbox {
+  margin-right: 0.5rem;
+}
+
+.chart-type-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.chart-type-btn.active {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats cards hover effect */
+.stats-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for comparison UI */
+@media (max-width: 768px) {
+  .game-tab {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .chart-container {
+    height: 300px;
+  }
+
+  .player-select-card {
+    padding: 0.5rem;
+  }
+
+  .player-select-card .player-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .text-4xl {
+    font-size: 2rem;
+  }
+
+  .flex-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .space-x-4 > * + * {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .game-tab {
+    padding: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+}

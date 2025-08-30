@@ -1,0 +1,4184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Games Leaderboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                <i class="fab fa-linkedin text-blue-600 mr-2"></i>
+                LinkedIn Games Leaderboard
+            </h1>
+            <p class="text-gray-600">Track your friend group's gaming achievements!</p>
+        </header>
+
+        <nav class="mb-8">
+            <div class="flex flex-wrap justify-center space-x-4 mb-4">
+                <button id="leaderboard-btn" class="nav-btn bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-trophy mr-2"></i>Leaderboards
+                </button>
+                <button id="comparison-btn" class="nav-btn bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <i class="fas fa-users mr-2"></i>Stats
+                </button>
+                <button id="profile-btn" class="nav-btn bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                    <i class="fas fa-user mr-2"></i>Player Profiles
+                </button>
+            </div>
+        </nav>
+
+        <div id="content" class="bg-white rounded-lg shadow-lg p-6">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Game data embedded directly -->
+    <script id="game-data" type="application/json">
+{
+  "players": {
+    "jayasuriyanalagarsamy": "Jayasuriyan Alagarsamy",
+    "hariharasubramaniyank": "Hari Hara Subramaniyan K",
+    "sanjaysrinivasan": "Sanjay Srinivasan",
+    "abilashashok": "Abilash Ashok",
+    "prasannasairamg": "Prasanna Sairam G",
+    "sivaranjaniiramamurthy": "Sivaranjanii Ramamurthy"
+  },
+  "games": {
+    "pinpoint": {
+      "hasGuesses": true
+    },
+    "zip": {
+      "hasTime": true,
+      "hasBacktracks": true
+    },
+    "tango": {
+      "hasTime": true
+    },
+    "queens": {
+      "hasTime": true
+    },
+    "crossclimb": {
+      "hasTime": true
+    },
+    "minisudoku": {
+      "hasTime": true
+    }
+  },
+  "entries": [
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "pinpoint",
+      "gameNum": 465,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 144,
+      "metrics": {
+        "time": 8,
+        "backtracks": 0
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 144,
+      "metrics": {
+        "time": 25,
+        "backtracks": 2
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 305,
+      "metrics": {
+        "time": 38
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 465,
+      "metrics": {
+        "time": 91
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 465,
+      "metrics": {
+        "time": 100
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 305,
+      "metrics": {
+        "time": 38
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 465,
+      "metrics": {
+        "time": 71
+      },
+      "date": "2025-08-08"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 145,
+      "metrics": {
+        "time": 13,
+        "backtracks": 1
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 145,
+      "metrics": {
+        "time": 16,
+        "backtracks": 0
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 306,
+      "metrics": {
+        "time": 35
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 466,
+      "metrics": {
+        "time": 26
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 306,
+      "metrics": {
+        "time": 65
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 466,
+      "metrics": {
+        "time": 12
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 306,
+      "metrics": {
+        "time": 44
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 145,
+      "metrics": {
+        "time": 15,
+        "backtracks": 1
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 466,
+      "metrics": {
+        "time": 34
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 145,
+      "metrics": {
+        "time": 18,
+        "backtracks": 3
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 306,
+      "metrics": {
+        "time": 25
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 466,
+      "metrics": {
+        "time": 40
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 466,
+      "metrics": {
+        "time": 45
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 466,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-09"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 467,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 467,
+      "metrics": {
+        "time": 52
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 146,
+      "metrics": {
+        "time": 20,
+        "backtracks": 0
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 146,
+      "metrics": {
+        "time": 32,
+        "backtracks": 0
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 467,
+      "metrics": {
+        "time": 56
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 307,
+      "metrics": {
+        "time": 117
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 146,
+      "metrics": {
+        "time": 11,
+        "backtracks": 1
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 307,
+      "metrics": {
+        "time": 62
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 146,
+      "metrics": {
+        "time": 13,
+        "backtracks": 1
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 307,
+      "metrics": {
+        "time": 41
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 467,
+      "metrics": {
+        "time": 128
+      },
+      "date": "2025-08-10"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 147,
+      "metrics": {
+        "time": 6,
+        "backtracks": 0
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 308,
+      "metrics": {
+        "time": 22
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 468,
+      "metrics": {
+        "time": 18
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 147,
+      "metrics": {
+        "time": 16,
+        "backtracks": 1
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 468,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 308,
+      "metrics": {
+        "time": 52
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 468,
+      "metrics": {
+        "time": 18
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 468,
+      "metrics": {
+        "time": 36
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 147,
+      "metrics": {
+        "time": 14,
+        "backtracks": 1
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 308,
+      "metrics": {
+        "time": 29
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 468,
+      "metrics": {
+        "time": 29
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 147,
+      "metrics": {
+        "time": 9,
+        "backtracks": 2
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 308,
+      "metrics": {
+        "time": 32
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 468,
+      "metrics": {
+        "time": 42
+      },
+      "date": "2025-08-11"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 148,
+      "metrics": {
+        "time": 11,
+        "backtracks": 3
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 309,
+      "metrics": {
+        "time": 28
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 148,
+      "metrics": {
+        "time": 11,
+        "backtracks": 0
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 469,
+      "metrics": {
+        "time": 75
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 309,
+      "metrics": {
+        "time": 53
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 469,
+      "metrics": {
+        "time": 83
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 309,
+      "metrics": {
+        "time": 61
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 148,
+      "metrics": {
+        "time": 11,
+        "backtracks": 0
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 469,
+      "metrics": {
+        "time": 25
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 309,
+      "metrics": {
+        "time": 35
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 148,
+      "metrics": {
+        "time": 7,
+        "backtracks": 0
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 469,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 469,
+      "metrics": {
+        "time": 52
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 309,
+      "metrics": {
+        "time": 67
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 469,
+      "metrics": {
+        "time": 70
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 1,
+      "metrics": {
+        "time": 98
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 1,
+      "metrics": {
+        "time": 148
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 1,
+      "metrics": {
+        "time": 77
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 1,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-12"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 149,
+      "metrics": {
+        "time": 4,
+        "backtracks": 0
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 149,
+      "metrics": {
+        "time": 5,
+        "backtracks": 0
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 2,
+      "metrics": {
+        "time": 148
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 310,
+      "metrics": {
+        "time": 152
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 149,
+      "metrics": {
+        "time": 7,
+        "backtracks": 0
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 470,
+      "metrics": {
+        "time": 10
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 310,
+      "metrics": {
+        "time": 75
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 470,
+      "metrics": {
+        "time": 29
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 2,
+      "metrics": {
+        "time": 139
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 310,
+      "metrics": {
+        "time": 49
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 470,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 470,
+      "metrics": {
+        "time": 30
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 470,
+      "metrics": {
+        "time": 41
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 2,
+      "metrics": {
+        "time": 81
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 470,
+      "metrics": {
+        "time": 27
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 310,
+      "metrics": {
+        "time": 46
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 149,
+      "metrics": {
+        "time": 4,
+        "backtracks": 0
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 470,
+      "metrics": {
+        "time": 16
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 310,
+      "metrics": {
+        "time": 39
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "pinpoint",
+      "gameNum": 470,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "pinpoint",
+      "gameNum": 470,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 149,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 2,
+      "metrics": {
+        "time": 107
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 2,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-13"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 150,
+      "metrics": {
+        "time": 9,
+        "backtracks": 3
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 311,
+      "metrics": {
+        "time": 48
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 471,
+      "metrics": {
+        "time": 95
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 3,
+      "metrics": {
+        "time": 91
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 311,
+      "metrics": {
+        "time": 29
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 471,
+      "metrics": {
+        "time": 39
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 471,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 471,
+      "metrics": {
+        "time": 44
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 3,
+      "metrics": {
+        "time": 143
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 150,
+      "metrics": {
+        "time": 36,
+        "backtracks": 12
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 3,
+      "metrics": {
+        "time": 91
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 311,
+      "metrics": {
+        "time": 28
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 471,
+      "metrics": {
+        "time": 19
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 150,
+      "metrics": {
+        "time": 14,
+        "backtracks": 1
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 3,
+      "metrics": {
+        "time": 60
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 471,
+      "metrics": {
+        "time": 10
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 311,
+      "metrics": {
+        "time": 22
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 471,
+      "metrics": {
+        "time": 63
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 311,
+      "metrics": {
+        "time": 76
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 3,
+      "metrics": {
+        "time": 107
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 150,
+      "metrics": {
+        "time": 16,
+        "backtracks": 1
+      },
+      "date": "2025-08-14"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 151,
+      "metrics": {
+        "time": 9,
+        "backtracks": 1
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 4,
+      "metrics": {
+        "time": 58
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 472,
+      "metrics": {
+        "time": 32
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 312,
+      "metrics": {
+        "time": 60
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 312,
+      "metrics": {
+        "time": 40
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 151,
+      "metrics": {
+        "time": 6,
+        "backtracks": 0
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 4,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 151,
+      "metrics": {
+        "time": 15,
+        "backtracks": 1
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 151,
+      "metrics": {
+        "time": 11,
+        "backtracks": 1
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 4,
+      "metrics": {
+        "time": 89
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 312,
+      "metrics": {
+        "time": 36
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 472,
+      "metrics": {
+        "time": 108
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 4,
+      "metrics": {
+        "time": 85
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 312,
+      "metrics": {
+        "time": 29
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 472,
+      "metrics": {
+        "time": 125
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 472,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 472,
+      "metrics": {
+        "time": 38
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 4,
+      "metrics": {
+        "time": 96
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 151,
+      "metrics": {
+        "time": 18,
+        "backtracks": 1
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 312,
+      "metrics": {
+        "time": 97
+      },
+      "date": "2025-08-15"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 152,
+      "metrics": {
+        "time": 7,
+        "backtracks": 0
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 5,
+      "metrics": {
+        "time": 166
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 473,
+      "metrics": {
+        "time": 37
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 313,
+      "metrics": {
+        "time": 48
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "pinpoint",
+      "gameNum": 473,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 152,
+      "metrics": {
+        "time": 12,
+        "backtracks": 0
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 152,
+      "metrics": {
+        "time": 11,
+        "backtracks": 3
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 5,
+      "metrics": {
+        "time": 86
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 313,
+      "metrics": {
+        "time": 45
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 473,
+      "metrics": {
+        "time": 68
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 473,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 152,
+      "metrics": {
+        "time": 9,
+        "backtracks": 1
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 152,
+      "metrics": {
+        "time": 15,
+        "backtracks": 0
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "pinpoint",
+      "gameNum": 473,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 473,
+      "metrics": {
+        "time": 64
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 473,
+      "metrics": {
+        "time": 101
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 313,
+      "metrics": {
+        "time": 119
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 5,
+      "metrics": {
+        "time": 126
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 5,
+      "metrics": {
+        "time": 261
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 473,
+      "metrics": {
+        "time": 44
+      },
+      "date": "2025-08-16"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 314,
+      "metrics": {
+        "time": 34
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 474,
+      "metrics": {
+        "time": 54
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 6,
+      "metrics": {
+        "time": 76
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 314,
+      "metrics": {
+        "time": 34
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 153,
+      "metrics": {
+        "time": 20,
+        "backtracks": 6
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 153,
+      "metrics": {
+        "time": 27,
+        "backtracks": 2
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 6,
+      "metrics": {
+        "time": 79
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 474,
+      "metrics": {
+        "time": 116
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 314,
+      "metrics": {
+        "time": 98
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 474,
+      "metrics": {
+        "time": 70
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 474,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 474,
+      "metrics": {
+        "time": 56
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 6,
+      "metrics": {
+        "time": 110
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 474,
+      "metrics": {
+        "time": 77
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 153,
+      "metrics": {
+        "time": 12,
+        "backtracks": 2
+      },
+      "date": "2025-08-17"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 475,
+      "metrics": {
+        "time": 26
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 154,
+      "metrics": {
+        "time": 8,
+        "backtracks": 0
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 475,
+      "metrics": {
+        "time": 54
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 154,
+      "metrics": {
+        "time": 11,
+        "backtracks": 0
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 7,
+      "metrics": {
+        "time": 115
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 7,
+      "metrics": {
+        "time": 97
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 154,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 315,
+      "metrics": {
+        "time": 23
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "crossclimb",
+      "gameNum": 475,
+      "metrics": {
+        "time": 69
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 154,
+      "metrics": {
+        "time": 6,
+        "backtracks": 0
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "pinpoint",
+      "gameNum": 475,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 7,
+      "metrics": {
+        "time": 100
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 315,
+      "metrics": {
+        "time": 16
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 475,
+      "metrics": {
+        "time": 19
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 475,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 475,
+      "metrics": {
+        "time": 58
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 154,
+      "metrics": {
+        "time": 11,
+        "backtracks": 3
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 7,
+      "metrics": {
+        "time": 61
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 315,
+      "metrics": {
+        "time": 12
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 475,
+      "metrics": {
+        "time": 17
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 7,
+      "metrics": {
+        "time": 110
+      },
+      "date": "2025-08-18"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 155,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 8,
+      "metrics": {
+        "time": 114
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 316,
+      "metrics": {
+        "time": 34
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 476,
+      "metrics": {
+        "time": 18
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 476,
+      "metrics": {
+        "time": 15
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 316,
+      "metrics": {
+        "time": 49
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 155,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 155,
+      "metrics": {
+        "time": 10,
+        "backtracks": 1
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 316,
+      "metrics": {
+        "time": 30
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 476,
+      "metrics": {
+        "time": 24
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 8,
+      "metrics": {
+        "time": 205
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 476,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 476,
+      "metrics": {
+        "time": 72
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 155,
+      "metrics": {
+        "time": 30
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 155,
+      "metrics": {
+        "time": 17,
+        "backtracks": 1
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 316,
+      "metrics": {
+        "time": 60
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 476,
+      "metrics": {
+        "time": 31
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 476,
+      "metrics": {
+        "time": 7
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 8,
+      "metrics": {
+        "time": 88
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 155,
+      "metrics": {
+        "time": 8
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 316,
+      "metrics": {
+        "time": 35
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 8,
+      "metrics": {
+        "time": 122
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "pinpoint",
+      "gameNum": 476,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-19"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 156,
+      "metrics": {
+        "time": 28,
+        "backtracks": 0
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 156,
+      "metrics": {
+        "time": 16,
+        "backtracks": 0
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 317,
+      "metrics": {
+        "time": 76
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "pinpoint",
+      "gameNum": 477,
+      "metrics": {
+        "guesses": 5
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 317,
+      "metrics": {
+        "time": 68
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 317,
+      "metrics": {
+        "time": 37
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 156,
+      "metrics": {
+        "time": 11,
+        "backtracks": 0
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 477,
+      "metrics": {
+        "time": 100
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 477,
+      "metrics": {
+        "time": 92
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 9,
+      "metrics": {
+        "time": 52
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 9,
+      "metrics": {
+        "time": 139
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 156,
+      "metrics": {
+        "time": 8,
+        "backtracks": 2
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 9,
+      "metrics": {
+        "time": 62
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 317,
+      "metrics": {
+        "time": 47
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "crossclimb",
+      "gameNum": 477,
+      "metrics": {
+        "time": 167
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 477,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 477,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 477,
+      "metrics": {
+        "time": 50
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 317,
+      "metrics": {
+        "time": 50
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 477,
+      "metrics": {
+        "time": 71
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 9,
+      "metrics": {
+        "time": 118
+      },
+      "date": "2025-08-20"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 157,
+      "metrics": {
+        "time": 71,
+        "backtracks": 8
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 478,
+      "metrics": {
+        "time": 52
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 157,
+      "metrics": {
+        "time": 83,
+        "backtracks": 4
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 157,
+      "metrics": {
+        "time": 128,
+        "backtracks": 12
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 10,
+      "metrics": {
+        "time": 129
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 318,
+      "metrics": {
+        "time": 46
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 318,
+      "metrics": {
+        "time": 35
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 157,
+      "metrics": {
+        "time": 40,
+        "backtracks": 4
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 478,
+      "metrics": {
+        "time": 131
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 10,
+      "metrics": {
+        "time": 251
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 478,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 478,
+      "metrics": {
+        "time": 145
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 318,
+      "metrics": {
+        "time": 34
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 157,
+      "metrics": {
+        "time": 96,
+        "backtracks": 26
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 10,
+      "metrics": {
+        "time": 111
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 318,
+      "metrics": {
+        "time": 51
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 10,
+      "metrics": {
+        "time": 253
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 478,
+      "metrics": {
+        "time": 29
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 478,
+      "metrics": {
+        "time": 40
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "pinpoint",
+      "gameNum": 478,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 10,
+      "metrics": {
+        "time": 40
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 318,
+      "metrics": {
+        "time": 74
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 478,
+      "metrics": {
+        "time": 108
+      },
+      "date": "2025-08-21"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 158,
+      "metrics": {
+        "time": 31,
+        "backtracks": 3
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 11,
+      "metrics": {
+        "time": 228
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 158,
+      "metrics": {
+        "time": 14,
+        "backtracks": 0
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 319,
+      "metrics": {
+        "time": 95
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 479,
+      "metrics": {
+        "time": 63
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 319,
+      "metrics": {
+        "time": 57
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 11,
+      "metrics": {
+        "time": 162
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 158,
+      "metrics": {
+        "time": 37,
+        "backtracks": 1
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 319,
+      "metrics": {
+        "time": 104
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 11,
+      "metrics": {
+        "time": 83
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 479,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "pinpoint",
+      "gameNum": 479,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 479,
+      "metrics": {
+        "time": 158
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "pinpoint",
+      "gameNum": 479,
+      "metrics": {
+        "guesses": 4
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 479,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 158,
+      "metrics": {
+        "time": 14,
+        "backtracks": 3
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 479,
+      "metrics": {
+        "time": 118
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 11,
+      "metrics": {
+        "time": 158
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 479,
+      "metrics": {
+        "time": 60
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 158,
+      "metrics": {
+        "time": 8,
+        "backtracks": 1
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 11,
+      "metrics": {
+        "time": 86
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 319,
+      "metrics": {
+        "time": 48
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 479,
+      "metrics": {
+        "time": 101
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 158,
+      "metrics": {
+        "time": 31,
+        "backtracks": 1
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 479,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 319,
+      "metrics": {
+        "time": 106
+      },
+      "date": "2025-08-22"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 159,
+      "metrics": {
+        "time": 8,
+        "backtracks": 0
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 12,
+      "metrics": {
+        "time": 81
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 320,
+      "metrics": {
+        "time": 67
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 480,
+      "metrics": {
+        "time": 221
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 159,
+      "metrics": {
+        "time": 10,
+        "backtracks": 0
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 320,
+      "metrics": {
+        "time": 73
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 12,
+      "metrics": {
+        "time": 129
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 12,
+      "metrics": {
+        "time": 126
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 159,
+      "metrics": {
+        "time": 11,
+        "backtracks": 0
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 480,
+      "metrics": {
+        "time": 215
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 12,
+      "metrics": {
+        "time": 109
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 159,
+      "metrics": {
+        "time": 15,
+        "backtracks": 3
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 320,
+      "metrics": {
+        "time": 53
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 480,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 320,
+      "metrics": {
+        "time": 31
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 159,
+      "metrics": {
+        "time": 12,
+        "backtracks": 4
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 12,
+      "metrics": {
+        "time": 128
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 480,
+      "metrics": {
+        "time": 154
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 480,
+      "metrics": {
+        "time": 139
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 159,
+      "metrics": {
+        "time": 11,
+        "backtracks": 0
+      },
+      "date": "2025-08-23"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 481,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 481,
+      "metrics": {
+        "time": 66
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 481,
+      "metrics": {
+        "time": 38
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 481,
+      "metrics": {
+        "time": 121
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 13,
+      "metrics": {
+        "time": 118
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 160,
+      "metrics": {
+        "time": 15,
+        "backtracks": 1
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 321,
+      "metrics": {
+        "time": 174
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "pinpoint",
+      "gameNum": 481,
+      "metrics": {
+        "guesses": 5
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "crossclimb",
+      "gameNum": 481,
+      "metrics": {
+        "time": 94
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 160,
+      "metrics": {
+        "time": 10,
+        "backtracks": 1
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 13,
+      "metrics": {
+        "time": 173
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 481,
+      "metrics": {
+        "time": 168
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 160,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 321,
+      "metrics": {
+        "time": 160
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 481,
+      "metrics": {
+        "time": 130
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 13,
+      "metrics": {
+        "time": 152
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 13,
+      "metrics": {
+        "time": 161
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 481,
+      "metrics": {
+        "time": 83
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 160,
+      "metrics": {
+        "time": 7,
+        "backtracks": 0
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 13,
+      "metrics": {
+        "time": 81
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 321,
+      "metrics": {
+        "time": 249
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 481,
+      "metrics": {
+        "time": 30
+      },
+      "date": "2025-08-24"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 161,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 322,
+      "metrics": {
+        "time": 37
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 482,
+      "metrics": {
+        "time": 9
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 482,
+      "metrics": {
+        "time": 17
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 14,
+      "metrics": {
+        "time": 63
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "pinpoint",
+      "gameNum": 482,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 161,
+      "metrics": {
+        "time": 6,
+        "backtracks": 0
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 482,
+      "metrics": {
+        "time": 22
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 161,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "pinpoint",
+      "gameNum": 482,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 322,
+      "metrics": {
+        "time": 34
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 14,
+      "metrics": {
+        "time": 49
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 14,
+      "metrics": {
+        "time": 56
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 14,
+      "metrics": {
+        "time": 63
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 482,
+      "metrics": {
+        "time": 30
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 322,
+      "metrics": {
+        "time": 27
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 482,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 482,
+      "metrics": {
+        "time": 43
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 161,
+      "metrics": {
+        "time": 8,
+        "backtracks": 0
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 14,
+      "metrics": {
+        "time": 49
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 322,
+      "metrics": {
+        "time": 30
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 482,
+      "metrics": {
+        "time": 15
+      },
+      "date": "2025-08-25"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 162,
+      "metrics": {
+        "time": 15,
+        "backtracks": 1
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 15,
+      "metrics": {
+        "time": 59
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 162,
+      "metrics": {
+        "time": 20,
+        "backtracks": 3
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 323,
+      "metrics": {
+        "time": 33
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 15,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 483,
+      "metrics": {
+        "time": 43
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 483,
+      "metrics": {
+        "time": 108
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 323,
+      "metrics": {
+        "time": 31
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 323,
+      "metrics": {
+        "time": 33
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 15,
+      "metrics": {
+        "time": 58
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "pinpoint",
+      "gameNum": 483,
+      "metrics": {
+        "guesses": 4
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "crossclimb",
+      "gameNum": 483,
+      "metrics": {
+        "time": 97
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 162,
+      "metrics": {
+        "time": 70,
+        "backtracks": 12
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 323,
+      "metrics": {
+        "time": 27
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 162,
+      "metrics": {
+        "time": 26,
+        "backtracks": 1
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 323,
+      "metrics": {
+        "time": 39
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 15,
+      "metrics": {
+        "time": 1
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 162,
+      "metrics": {
+        "time": 13,
+        "backtracks": 1
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 483,
+      "metrics": {
+        "guesses": 1
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 483,
+      "metrics": {
+        "time": 37
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 323,
+      "metrics": {
+        "time": 26
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 483,
+      "metrics": {
+        "time": 62
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 15,
+      "metrics": {
+        "time": 124
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 15,
+      "metrics": {
+        "time": 105
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 483,
+      "metrics": {
+        "time": 15
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 15,
+      "metrics": {
+        "time": 69
+      },
+      "date": "2025-08-26"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 163,
+      "metrics": {
+        "time": 21,
+        "backtracks": 2
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 484,
+      "metrics": {
+        "time": 96
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 16,
+      "metrics": {
+        "time": 68
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 324,
+      "metrics": {
+        "time": 26
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "crossclimb",
+      "gameNum": 484,
+      "metrics": {
+        "time": 44
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 163,
+      "metrics": {
+        "time": 16,
+        "backtracks": 0
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 324,
+      "metrics": {
+        "time": 77
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 484,
+      "metrics": {
+        "time": 32
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 16,
+      "metrics": {
+        "time": 100
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 163,
+      "metrics": {
+        "time": 8,
+        "backtracks": 0
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 163,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 16,
+      "metrics": {
+        "time": 92
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 324,
+      "metrics": {
+        "time": 33
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 16,
+      "metrics": {
+        "time": 110
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 324,
+      "metrics": {
+        "time": 29
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 484,
+      "metrics": {
+        "time": 48
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 484,
+      "metrics": {
+        "guesses": 2
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 163,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 16,
+      "metrics": {
+        "time": 192
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 484,
+      "metrics": {
+        "time": 143
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 324,
+      "metrics": {
+        "time": 31
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 484,
+      "metrics": {
+        "time": 54
+      },
+      "date": "2025-08-27"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 164,
+      "metrics": {
+        "time": 9,
+        "backtracks": 1
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 164,
+      "metrics": {
+        "time": 6,
+        "backtracks": 0
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 17,
+      "metrics": {
+        "time": 166
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 17,
+      "metrics": {
+        "time": 78
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 17,
+      "metrics": {
+        "time": 83
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 485,
+      "metrics": {
+        "time": 63
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 325,
+      "metrics": {
+        "time": 25
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 325,
+      "metrics": {
+        "time": 22
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 325,
+      "metrics": {
+        "time": 26
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 485,
+      "metrics": {
+        "time": 36
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 17,
+      "metrics": {
+        "time": 92
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 164,
+      "metrics": {
+        "time": 10,
+        "backtracks": 0
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 325,
+      "metrics": {
+        "time": 33
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 485,
+      "metrics": {
+        "time": 81
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 17,
+      "metrics": {
+        "time": 115
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 485,
+      "metrics": {
+        "guesses": 3
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 485,
+      "metrics": {
+        "time": 37
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 485,
+      "metrics": {
+        "time": 145
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 164,
+      "metrics": {
+        "time": 9,
+        "backtracks": 0
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 325,
+      "metrics": {
+        "time": 24
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 325,
+      "metrics": {
+        "time": 48
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 164,
+      "metrics": {
+        "time": 7,
+        "backtracks": 0
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 485,
+      "metrics": {
+        "time": 80
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 17,
+      "metrics": {
+        "time": 71
+      },
+      "date": "2025-08-28"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "zip",
+      "gameNum": 165,
+      "metrics": {
+        "time": 21,
+        "backtracks": 1
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "zip",
+      "gameNum": 165,
+      "metrics": {
+        "time": 12,
+        "backtracks": 0
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "tango",
+      "gameNum": 326,
+      "metrics": {
+        "time": 33
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "tango",
+      "gameNum": 326,
+      "metrics": {
+        "time": 35
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "queens",
+      "gameNum": 486,
+      "metrics": {
+        "time": 74
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sivaranjaniiramamurthy",
+      "game": "minisudoku",
+      "gameNum": 18,
+      "metrics": {
+        "time": 107
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "minisudoku",
+      "gameNum": 18,
+      "metrics": {
+        "time": 163
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "abilashashok",
+      "game": "queens",
+      "gameNum": 486,
+      "metrics": {
+        "time": 57
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "minisudoku",
+      "gameNum": 18,
+      "metrics": {
+        "time": 139
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "queens",
+      "gameNum": 486,
+      "metrics": {
+        "time": 97
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "queens",
+      "gameNum": 486,
+      "metrics": {
+        "time": 48
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 18,
+      "metrics": {
+        "time": 75
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "queens",
+      "gameNum": 486,
+      "metrics": {
+        "time": 40
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "zip",
+      "gameNum": 165,
+      "metrics": {
+        "time": 16,
+        "backtracks": 0
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "tango",
+      "gameNum": 326,
+      "metrics": {
+        "time": 28
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "minisudoku",
+      "gameNum": 18,
+      "metrics": {
+        "time": 110
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "prasannasairamg",
+      "game": "crossclimb",
+      "gameNum": 486,
+      "metrics": {
+        "time": 50
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "tango",
+      "gameNum": 326,
+      "metrics": {
+        "time": 32
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "zip",
+      "gameNum": 165,
+      "metrics": {
+        "time": 8,
+        "backtracks": 0
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "zip",
+      "gameNum": 165,
+      "metrics": {
+        "time": 21,
+        "backtracks": 0
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "tango",
+      "gameNum": 326,
+      "metrics": {
+        "time": 43
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "jayasuriyanalagarsamy",
+      "game": "minisudoku",
+      "gameNum": 18,
+      "metrics": {
+        "time": 75
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "pinpoint",
+      "gameNum": 486,
+      "metrics": {
+        "guesses": 4
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "zip",
+      "gameNum": 165,
+      "metrics": {
+        "time": 13,
+        "backtracks": 0
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "minisudoku",
+      "gameNum": 18,
+      "metrics": {
+        "time": 99
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "tango",
+      "gameNum": 326,
+      "metrics": {
+        "time": 27
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "hariharasubramaniyank",
+      "game": "queens",
+      "gameNum": 486,
+      "metrics": {
+        "time": 72
+      },
+      "date": "2025-08-29"
+    },
+    {
+      "playerId": "sanjaysrinivasan",
+      "game": "crossclimb",
+      "gameNum": 486,
+      "metrics": {
+        "time": 30
+      },
+      "date": "2025-08-29"
+    }
+  ]
+}
+    </script>
+
+    <!-- Load JavaScript modules in correct order -->
+    <script src="js/data-manager.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/comparison.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/chart-component.js"></script>
+    <script src="js/metrics-display.js"></script>
+    <script src="js/player-profile.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
