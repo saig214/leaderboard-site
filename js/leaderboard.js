@@ -7,6 +7,7 @@ class LeaderboardUI {
     this.activeGameTab = 'all'; // 'all' or specific game ID
     this.showWorstPerformers = false; // Toggle for top vs worst performers
     this.app = app; // Reference to main app for re-rendering
+    this.dateScrollerScrollLeft = 0; // preserve scroller position across renders
   }
 
   render(timeRange = 'allTime') {
@@ -70,7 +71,9 @@ class LeaderboardUI {
                   <span>All Games</span>
                 </div>
               </button>
-              ${Object.keys(gameStats).map(gameId => `
+              ${Object.keys(this.dataManager.rawData.games)
+                .filter(gameId => gameStats[gameId])
+                .map(gameId => `
                 <button class="game-tab-btn px-4 py-3 text-center font-medium transition-colors duration-200 whitespace-nowrap ${
                   this.activeGameTab === gameId
                     ? 'bg-blue-500 text-white border-b-2 border-blue-500'
@@ -88,9 +91,10 @@ class LeaderboardUI {
           <div class="p-6">
             ${this.activeGameTab === 'all'
               ? `<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                  ${Object.entries(gameStats).map(([gameId, entries]) =>
-                    this.renderGameCard(gameId, entries)
-                  ).join('')}
+                  ${Object.keys(this.dataManager.rawData.games)
+                    .filter(gameId => gameStats[gameId])
+                    .map(gameId => this.renderGameCard(gameId, gameStats[gameId]))
+                    .join('')}
                 </div>`
               : this.renderSingleGameView(this.activeGameTab, gameStats[this.activeGameTab])
             }
@@ -370,11 +374,19 @@ class LeaderboardUI {
   }
 
   renderDateSelector() {
-    const availableDates = [...new Set(this.dataManager.rawData.entries.map(entry => entry.date))]
+    let availableDates = [...new Set(this.dataManager.rawData.entries.map(entry => entry.date))]
       .sort((a, b) => new Date(a) - new Date(b)); // Sort ascending for better UX
+
+    // Ensure Today is visible even if there are no entries yet
+    const todayIso = new Date().toISOString().split('T')[0];
+    if (!availableDates.includes(todayIso)) {
+      availableDates.push(todayIso);
+      availableDates.sort((a, b) => new Date(a) - new Date(b));
+    }
 
     const currentIndex = availableDates.indexOf(this.selectedDate);
     const currentEntries = this.dataManager.rawData.entries.filter(entry => entry.date === this.selectedDate);
+    const currentGamesCount = new Set(currentEntries.map(e => e.game)).size;
 
     return `
       <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
@@ -383,7 +395,7 @@ class LeaderboardUI {
             <i class="fas fa-calendar-day mr-2"></i>Daily View
           </h3>
           <div class="text-sm text-blue-600">
-            ${currentEntries.length} entries on ${this.formatDateForSelector(this.selectedDate)}
+            ${currentGamesCount} game${currentGamesCount !== 1 ? 's' : ''} on ${this.formatDateForSelector(this.selectedDate)}
           </div>
         </div>
 
@@ -396,7 +408,7 @@ class LeaderboardUI {
                 const dateObj = new Date(date);
                 const isToday = date === new Date().toISOString().split('T')[0];
                 const isYesterday = date === new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-                const entriesCount = this.dataManager.rawData.entries.filter(entry => entry.date === date).length;
+                const gamesCount = new Set(this.dataManager.rawData.entries.filter(entry => entry.date === date).map(entry => entry.game)).size;
 
                 let label = '';
                 let icon = 'fas fa-calendar';
@@ -418,24 +430,20 @@ class LeaderboardUI {
                       : 'bg-white text-gray-700 border-gray-300 hover:border-blue-400 hover:bg-blue-50'
                   }"
                           onclick="window.leaderboardUI.updateSelectedDate('${date}')"
-                          title="${dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} - ${entriesCount} entries"
+                          title="${dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} - ${gamesCount} game${gamesCount !== 1 ? 's' : ''}"
                           data-date="${date}">
                     <div class="flex flex-col items-center space-y-1">
                       <div class="flex items-center space-x-1">
                         <i class="${icon} text-xs"></i>
                         <span class="font-medium text-sm">${label}</span>
                       </div>
-                      ${entriesCount > 0 ? `<span class="text-xs opacity-75">${entriesCount}</span>` : ''}
+                      <span class="text-xs opacity-75">${gamesCount}</span>
                     </div>
                   </button>
                 `;
               }).join('')}
             </div>
           </div>
-
-          <!-- Scroll indicators -->
-          <div class="absolute left-0 top-0 bottom-2 w-6 bg-gradient-to-r from-blue-50 to-transparent pointer-events-none z-10"></div>
-          <div class="absolute right-0 top-0 bottom-2 w-6 bg-gradient-to-l from-blue-50 to-transparent pointer-events-none z-10"></div>
         </div>
 
         <!-- Navigation hints -->
@@ -459,6 +467,29 @@ class LeaderboardUI {
       }
     }, 100);
   }
+
+
+  // Ensure the selected date is visible on initial daily load without animation
+  ensureSelectedDateVisible(onlyIfUnscrolled = true) {
+    requestAnimationFrame(() => {
+      const scroller = document.getElementById('date-scroller');
+      if (!scroller) return;
+      if (onlyIfUnscrolled && scroller.scrollLeft !== 0) return;
+
+      const selectedButton = scroller.querySelector(`[data-date="${this.selectedDate}"]`);
+      if (!selectedButton) return;
+
+      const buttonRect = selectedButton.getBoundingClientRect();
+      const scrollerRect = scroller.getBoundingClientRect();
+      const desired = scroller.scrollLeft + (buttonRect.left - scrollerRect.left) - (scrollerRect.width / 2) + (buttonRect.width / 2);
+
+      const prevBehavior = scroller.style.scrollBehavior;
+      scroller.style.scrollBehavior = 'auto';
+      scroller.scrollLeft = Math.max(0, desired);
+      requestAnimationFrame(() => {
+        scroller.style.scrollBehavior = prevBehavior || '';
+      });
+    });
   }
 
 
@@ -472,7 +503,17 @@ class LeaderboardUI {
     }
 
     const game = this.dataManager.rawData.games[gameId];
-    const topPlayers = entries.slice(0, 20); // Show top 20 for single game view
+
+    // Sort entries based on performance toggle
+    const sortedEntries = [...entries];
+    const currentMetric = this.currentMetric[gameId] || this.getDefaultMetric(game);
+    sortedEntries.sort((a, b) => {
+      const aValue = this.getMetricValue(a, currentMetric);
+      const bValue = this.getMetricValue(b, currentMetric);
+      return this.showWorstPerformers ? bValue - aValue : aValue - bValue;
+    });
+
+    const topPlayers = sortedEntries.slice(0, 20); // Show top 20 for single game view
 
     return `
       <div class="space-y-4">
@@ -488,7 +529,7 @@ class LeaderboardUI {
           <div class="text-right">
             <div class="text-sm font-medium text-gray-600">${this.showWorstPerformers ? 'Worst Performance' : 'Best Performance'}</div>
             <div class="text-2xl font-bold ${this.showWorstPerformers ? 'text-orange-600' : 'text-blue-600'}">
-              ${this.formatBestMetric(gameId, playersToShow, game)}
+              ${this.formatBestMetric(gameId, topPlayers, game)}
             </div>
           </div>
         </div>
@@ -527,6 +568,10 @@ class LeaderboardUI {
   }
 
   updateSelectedDate(dateString) {
+    // Preserve current horizontal scroll position of the date scroller
+    const scroller = document.getElementById('date-scroller');
+    this.dateScrollerScrollLeft = scroller ? scroller.scrollLeft : this.dateScrollerScrollLeft;
+
     this.selectedDate = dateString;
     // Re-render the view with the new date
     if (this.app) {
@@ -534,8 +579,19 @@ class LeaderboardUI {
     } else if (window.app) {
       window.app.renderView();
     }
-    // Auto-scroll to the selected date
-    this.scrollToSelectedDate();
+    // Restore the previous scroll position to avoid any movement
+    requestAnimationFrame(() => {
+      const newScroller = document.getElementById('date-scroller');
+      if (newScroller) {
+        const prevBehavior = newScroller.style.scrollBehavior;
+        newScroller.style.scrollBehavior = 'auto';
+        newScroller.scrollLeft = this.dateScrollerScrollLeft || 0;
+        // next frame restore behavior
+        requestAnimationFrame(() => {
+          newScroller.style.scrollBehavior = prevBehavior || '';
+        });
+      }
+    });
   }
 
   formatDateForSelector(dateString) {

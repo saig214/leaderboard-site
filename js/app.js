@@ -131,6 +131,10 @@ class LinkedInLeaderboard {
           // No charts in leaderboard view, so no need to destroy anything
           content.innerHTML = this.leaderboardUI.render(this.currentTimeRange);
           this.setupTimeRangeListeners();
+          if (this.currentTimeRange === 'daily') {
+            // Center Today on first load of daily section
+            this.leaderboardUI.ensureSelectedDateVisible(true);
+          }
           break;
         case 'comparison':
           // Destroy only comparison chart before recreating
@@ -159,6 +163,11 @@ class LinkedInLeaderboard {
       btn.addEventListener('click', (e) => {
         const newRange = e.target.closest('.time-range-btn').dataset.range;
         this.currentTimeRange = newRange;
+        // When switching to daily, default to Today
+        if (newRange === 'daily' && this.leaderboardUI) {
+          const todayIso = new Date().toISOString().split('T')[0];
+          this.leaderboardUI.selectedDate = todayIso;
+        }
         this.renderView();
       });
     });
@@ -214,11 +223,41 @@ class LinkedInLeaderboard {
       tab.addEventListener('click', (e) => {
         const gameId = e.currentTarget.dataset.game;
         this.comparisonUI.activeGame = gameId;
-        this.updateComparisonView();
+        // Re-render the stats view so the proper canvases (zip dual charts vs single) are present
+        this.chartsManager.destroyAllCharts();
+        const content = document.getElementById('content');
+        content.innerHTML = this.comparisonUI.render();
+        // Re-wire listeners for the freshly rendered DOM
+        this.setupComparisonListeners();
       });
     });
 
-    // No player selection or comparison chart type controls
+    // Zoom controls for current visible charts
+    const wireZoomButtons = () => {
+      const zoomIn = document.querySelector('.zoom-in-btn');
+      const zoomOut = document.querySelector('.zoom-out-btn');
+      const resetZoom = document.querySelector('.reset-zoom-btn');
+
+      const doForCharts = (fn) => {
+        const ids = this.comparisonUI.activeGame === 'zip'
+          ? ['zip-time-chart', 'zip-backtracks-chart']
+          : ['game-analysis-chart'];
+        ids.forEach(id => {
+          const chart = this.chartsManager.charts[id];
+          if (chart && chart.zoomScale) {
+            fn(chart);
+          } else if (chart) {
+            fn(chart);
+          }
+        });
+      };
+
+      if (zoomIn) zoomIn.onclick = () => doForCharts(chart => chart.zoom(1.2));
+      if (zoomOut) zoomOut.onclick = () => doForCharts(chart => chart.zoom(0.8));
+      if (resetZoom) resetZoom.onclick = () => doForCharts(chart => chart.resetZoom());
+    };
+
+    wireZoomButtons();
 
     // Initialize the chart
     this.updateComparisonChart();
@@ -343,6 +382,21 @@ class LinkedInLeaderboard {
     else if (metric === 'guesses' || (!metric && game.hasGuesses)) metricLabel = 'Guesses';
     else if (metric === 'backtracks') metricLabel = 'Backtracks';
 
+    // Compute bounds to restrict zoom/pan
+    const allY = datasets.flatMap(d => d.data.map(p => p.y));
+    const minY = Math.min(...allY);
+    const maxY = Math.max(...allY);
+    const yPadding = (maxY - minY) * 0.1 || 1;
+    const yMin = Math.max(0, minY - yPadding);
+    const yMax = maxY + yPadding;
+
+    const allX = datasets.flatMap(d => d.data.map(p => p.x));
+    const minX = Math.min(...allX);
+    const maxX = Math.max(...allX);
+    const xPadding = 1;
+    const xMin = minX - xPadding;
+    const xMax = maxX + xPadding;
+
     this.chartsManager.charts[canvasId] = new Chart(ctx, {
       type: 'line',
       data: {
@@ -366,17 +420,26 @@ class LinkedInLeaderboard {
           zoom: {
             pan: {
               enabled: true,
-              mode: 'xy'
+              mode: 'xy',
+              rangeMin: { x: xMin, y: yMin },
+              rangeMax: { x: xMax, y: yMax }
             },
             zoom: {
-              wheel: { enabled: true },
+              wheel: { enabled: false },
+              drag: { enabled: true },
               pinch: { enabled: true },
-              mode: 'xy'
+              mode: 'xy',
+              rangeMin: { x: xMin, y: yMin },
+              rangeMax: { x: xMax, y: yMax },
+              limits: {
+                x: { min: xMin, max: xMax, minRange: 3 },
+                y: { min: yMin, max: yMax, minRange: (yMax - yMin) * 0.2 || 1 }
+              }
             }
           },
           tooltip: {
-            mode: 'index',
-            intersect: false,
+            mode: 'nearest',
+            intersect: false
           }
         },
         scales: {
@@ -389,7 +452,9 @@ class LinkedInLeaderboard {
             },
             ticks: {
               stepSize: 1
-            }
+            },
+            min: xMin,
+            max: xMax
           },
           y: {
             beginAtZero: false,
@@ -397,7 +462,9 @@ class LinkedInLeaderboard {
               display: true,
               text: metricLabel
             },
-            reverse: false
+            reverse: false,
+            min: yMin,
+            max: yMax
           }
         },
         interaction: {

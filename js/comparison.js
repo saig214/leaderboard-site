@@ -40,6 +40,8 @@ class ComparisonUI {
           <div class="p-6">
             <h3 class="text-lg font-semibold capitalize mb-4">${this.activeGame} Analysis</h3>
 
+            <!-- Zoom Controls removed -->
+
             <!-- Chart Area(s) -->
             ${this.activeGame === 'zip' ? `
               <div class="space-y-6">
