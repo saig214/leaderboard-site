@@ -233,7 +233,7 @@ class DataManager {
     const name = this.rawData.players[playerId];
     // Define nicknames for specific players
     const nicknames = {
-      "jayasuriyanalagarsamy": "Jayasuriyan",
+      "jayasuriyanalagarsamy": "Jaya",
       "hariharasubramaniyank": "Hari",
       "sanjaysrinivasan": "Sanjay",
       "abilashashok": "Abilash",
